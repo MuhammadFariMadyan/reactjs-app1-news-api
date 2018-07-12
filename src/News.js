@@ -2,23 +2,22 @@ import React, { Component } from "react";
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-class Turkey extends Component {
+class News extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      author: []
+      article: []
     };
   }
- 
+ // list News
   componentDidMount() {
     axios.get('https://newsapi.org/v2/top-headlines?sources=al-jazeera-english&apiKey=cc474d575828432c8c562bd5dc35d3f8')
     .then((res)=> {
-    console.log(res.data)
-    //serults
+    console.log(res.data)    
     this.setState
     (
-    	{author: res.data.articles}
+    	{article: res.data.articles}
     )
     }).catch(err => console.log(err))
 }
@@ -43,36 +42,22 @@ class Turkey extends Component {
       return composedTime;
     }
 
-     render() {
+  render() {
     return (
       <div className="App">
       
       {
-        this.state.author.map((news, index) => {
+        this.state.article.map((news, index) => {
           return (
-            <div  align="center" key={index}>
-              {
-                /*                
-                  <h3><Link to={`/news/${index}`}> {data.title} </Link></h3> 
-                  <h5>{data.description}</h5>
-                */
-              }
-              <div className="content">
+            <div  align="center" key={index}> 
+              <div className="content">                
                 <h3>
-                  <a href={news.url} target="_blank">
-                    {news.title}
-                  </a>
+                  <Link to={`/news/${index}`}> <strong>{this.formatDate(news.publishedAt)}</strong> {news.title} </Link>                  
                 </h3>
-                <p>{news.description}</p>
-                <div className="author">
-                  <p>
-                    By <i>{news.author ? news.author : this.props.default}</i>
-                  </p>
-                  <p>{this.formatDate(news.publishedAt)}</p>
-                </div>
+                <p>{news.description ? news.description : "No Available Description"}</p>                
               </div>
               <div className="image">
-                <img src={news.urlToImage} alt="" />
+                <img src={news.urlToImage ? news.urlToImage : "http://via.placeholder.com/512x512"} height="240" width="480" alt="" />
               </div>
 
             </div>
@@ -85,4 +70,4 @@ class Turkey extends Component {
   }
 }
 
-export default Turkey;
+export default News;
