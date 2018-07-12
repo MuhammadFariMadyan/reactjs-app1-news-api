@@ -4,9 +4,9 @@ import {
   NavLink,
   HashRouter
 } from "react-router-dom";
-import Home from "./Home";
-import News from "./News";
-import News_detail from "./News_detail";
+import Home from "./components/Home";
+import News from "./components/News";
+import NewsDetail from "./components/NewsDetail";
 
 class Main extends Component {
   render() {
@@ -22,7 +22,7 @@ class Main extends Component {
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route exact path="/news" component={News}/>
-            <Route exact path="/news/:index" component={News_detail}/>
+            <Route exact path="/news/:index" component={NewsDetail}/>
           </div>
         </div>
         </HashRouter>
